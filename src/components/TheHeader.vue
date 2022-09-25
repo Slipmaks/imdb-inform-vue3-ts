@@ -15,12 +15,12 @@
 
 <style>
 .nav {
-  @apply flex justify-between p-2 rounded-md border-2 border-slate-100;
+  @apply flex justify-between p-2 rounded-lg border-2 border-blue-400 bg-blue-200;
 }
 .logo img {
   @apply h-8;
 }
 .burger {
-  @apply cursor-pointer bg-slate-50 hover:bg-slate-100 px-1 py-2 rounded-md transition-all;
+  @apply cursor-pointer bg-blue-100 hover:bg-blue-50 px-1 py-2 rounded-lg transition-all;
 }
 </style>

@@ -15,7 +15,7 @@ export const useStore = defineStore("main", {
       this.count++;
     },
     setNews(res: string) {
-      const obj = JSON.parse(res);
+      const obj: { items: {}[] } = JSON.parse(res);
       this.news = Object.assign({}, obj);
       console.log(this.news);
     },
