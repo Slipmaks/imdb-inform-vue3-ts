@@ -1,24 +1,16 @@
 <template>
   <div class="wrapper">
     <TheHeader />
-    <h2 class="font-bold text-5xl text-center underline my-2">Film news</h2>
-    <TheNewsList
-      v-for="item in store.news.items"
-      :key="item"
-      :imgUrl="item.image.url"
-      :body="item.body"
-      :head="item.head"
-    />
+    <h1 class="text-2xl font-bold text-center mb-3">
+      Find information about movie
+    </h1>
+
     <router-view></router-view>
   </div>
 </template>
 
 <script setup lang="ts">
 import TheHeader from "./components/TheHeader.vue";
-import TheNewsList from "./components/TheNewsList.vue";
-import { useStore } from "./store/store";
-
-const store = useStore();
 </script>
 
 <style scoped>

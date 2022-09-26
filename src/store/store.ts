@@ -3,7 +3,18 @@ import { defineStore } from "pinia";
 export const useStore = defineStore("main", {
   state: () => ({
     count: 0,
-    news: {},
+    news: {
+      items: [
+        {
+          body: "",
+          head: "",
+          image: {
+            url: "",
+          },
+          link: "",
+        },
+      ],
+    },
   }),
   getters: {
     getCount(): number {
@@ -16,7 +27,7 @@ export const useStore = defineStore("main", {
     },
     setNews(res: string) {
       const obj: { items: {}[] } = JSON.parse(res);
-      this.news = Object.assign({}, obj);
+      this.news = Object.assign({}, obj) as any;
       console.log(this.news);
     },
   },

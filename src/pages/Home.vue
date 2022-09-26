@@ -1,9 +1,14 @@
 <template>
-  <div>
-    <h1 class="text-2xl font-bold text-center mb-3">
-      Find information about movie
-    </h1>
-  </div>
+  <div></div>
+  <h2 class="font-bold text-5xl text-center my-2">Films news</h2>
+  <TheNewsList
+    v-for="item in store.news.items"
+    :key="item"
+    :imgUrl="item.image.url"
+    :body="item.body"
+    :head="item.head"
+    :link="item.link"
+  />
   <TheSearch />
 </template>
 
@@ -11,6 +16,7 @@
 import { useStore } from "../store/store";
 import { onMounted } from "vue";
 import TheSearch from "../components/TheSearch.vue";
+import TheNewsList from "../components/TheNewsList.vue";
 
 const store = useStore();
 

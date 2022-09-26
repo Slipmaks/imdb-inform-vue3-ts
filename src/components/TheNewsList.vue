@@ -2,11 +2,13 @@
   <div class="newsSection">
     <div class="relative max-w-xs flex">
       <img :src="imgUrl" alt="img" />
-      <h2
+      <a
+        :href="link"
+        target="_blank"
         class="font-bold absolute bottom-0 p-1 text-cyan-50 text-opacity-70 hover:text-opacity-100 bg-slate-300 bg-opacity-40 hover:bg-opacity-50 transition-all cursor-pointer"
       >
         {{ head }}
-      </h2>
+      </a>
     </div>
     <p>{{ body }}</p>
   </div>
@@ -16,6 +18,7 @@ defineProps({
   imgUrl: String,
   body: String,
   head: String,
+  link: String,
 });
 </script>
 <style scoped>
