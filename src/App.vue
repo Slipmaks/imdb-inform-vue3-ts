@@ -11,10 +11,12 @@
 
 <script setup lang="ts">
 import TheHeader from "./components/TheHeader.vue";
+import { useStore } from "./store/store";
+const store = useStore();
 </script>
 
 <style scoped>
 .wrapper {
-  @apply px-3 pt-3 bg-blue-300;
+  @apply px-3 pt-3 bg-blue-300 font-sans;
 }
 </style>

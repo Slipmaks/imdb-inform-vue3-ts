@@ -1,4 +1,12 @@
 <template>
+  <Teleport to="body"
+    ><div
+      class="menu-bg"
+      @click="store.openMenu = false"
+      v-if="store.openMenu"
+    ></div
+  ></Teleport>
+
   <div id="nav" class="nav">
     <div class="logo flex items-center gap-3">
       <router-link to="/"
@@ -14,8 +22,7 @@
     </div>
   </div>
 
-  <!-- <router-link to="any">any</router-link> -->
-  <div class="menu" v-if="store.openMenu">
+  <div class="menu" :class="{ display: store.openMenu }">
     <span v-for="link in links" :key="link.id" class="link">
       <router-link :to="{ path: link.path }">{{ link.title }}</router-link>
     </span>
@@ -24,7 +31,6 @@
 
 <script setup lang="ts">
 import { useStore } from "../store/store";
-import { ref } from "vue";
 
 const store = useStore();
 
@@ -53,11 +59,24 @@ const switchMenu = () => {
   @apply h-8;
 }
 .burger {
-  @apply block lg:hidden cursor-pointer bg-blue-100 hover:bg-blue-50 px-1 py-2 rounded-lg transition-all;
+  @apply z-40 block lg:hidden cursor-pointer bg-blue-100 hover:bg-blue-50 px-1 py-2 rounded-lg transition-all;
 }
 .menu {
-  @apply bg-blue-100 absolute z-50 left-0 right-0 ml-auto mr-auto w-72  p-2 rounded-lg flex flex-col  items-center transition-all;
+  @apply hidden bg-blue-100 absolute z-50 left-0 right-0 ml-auto mr-auto max-w-xs p-2 rounded-lg flex-col  items-center transition-all;
 }
 .link {
+  @apply p-2 bg-blue-50 rounded-lg m-2 hover:bg-blue-200 transition-all w-full text-center;
+}
+.display {
+  @apply flex;
+}
+.menu-bg {
+  @apply absolute top-0 left-0 h-full w-full z-30 opacity-30 bg-slate-500;
+}
+.link a {
+  @apply block;
+}
+.menu .router-link-active {
+  @apply p-2 bg-blue-200 rounded-lg  hover:bg-blue-200 transition-all w-full text-center;
 }
 </style>
