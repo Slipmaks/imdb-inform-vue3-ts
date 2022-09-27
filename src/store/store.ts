@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 
 export const useStore = defineStore("main", {
   state: () => ({
+    openMenu: true,
     count: 0,
     news: {
       items: [

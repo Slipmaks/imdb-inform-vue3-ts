@@ -13,18 +13,20 @@
       <div class="w-8 h-0.5 bg-gray-600"></div>
     </div>
   </div>
-  <div v-if="openMenu"><p>sometext</p></div>
-  <router-link to="any">any</router-link>
-  <!-- <div v-if="openMenu">
-<span v-for="link in links" :key="link.id">
-  <router-link :to="{ path: link.path }">{{ link.title }}</router-link>
-</span>
-</div> -->
+
+  <!-- <router-link to="any">any</router-link> -->
+  <div class="menu" v-if="store.openMenu">
+    <span v-for="link in links" :key="link.id" class="link">
+      <router-link :to="{ path: link.path }">{{ link.title }}</router-link>
+    </span>
+  </div>
 </template>
 
 <script setup lang="ts">
+import { useStore } from "../store/store";
 import { ref } from "vue";
-let openMenu = ref(false);
+
+const store = useStore();
 
 const links = [
   {
@@ -40,7 +42,7 @@ const links = [
 ];
 
 const switchMenu = () => {
-  openMenu.value = !openMenu.value;
+  store.openMenu = !store.openMenu;
 };
 </script>
 <style>
@@ -51,6 +53,11 @@ const switchMenu = () => {
   @apply h-8;
 }
 .burger {
-  @apply cursor-pointer bg-blue-100 hover:bg-blue-50 px-1 py-2 rounded-lg transition-all;
+  @apply block lg:hidden cursor-pointer bg-blue-100 hover:bg-blue-50 px-1 py-2 rounded-lg transition-all;
+}
+.menu {
+  @apply bg-blue-100 absolute z-50 left-0 right-0 ml-auto mr-auto w-72  p-2 rounded-lg flex flex-col  items-center transition-all;
+}
+.link {
 }
 </style>

@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
-
+import { useStore } from "./store/store";
 import Home from "./pages/Home.vue";
 import NotFound from "./pages/NotFound.vue";
+
 const routes = [
   {
     path: "/",
@@ -18,5 +19,10 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach(() => {
+  const store = useStore();
+  store.openMenu = false;
 });
 export default router;
