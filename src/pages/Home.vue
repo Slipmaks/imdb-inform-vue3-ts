@@ -1,24 +1,33 @@
 <template>
   <div></div>
   <h2 class="font-bold text-5xl text-center my-2">Films news</h2>
-  <TheNewsList
-    v-for="item in store.news.items"
-    :key="item"
-    :imgUrl="item.image.url"
-    :body="item.body"
-    :head="item.head"
-    :link="item.link"
-  />
+  <Carousel :settings="settings">
+    <Slide class="card__wrapper" v-for="item in store.news.items" :key="item">
+      <TheNewsList
+        :imgUrl="item.image.url"
+        :body="item.body"
+        :head="item.head"
+        :link="item.link"
+      />
+    </Slide>
+  </Carousel>
+
   <TheSearch />
 </template>
 
 <script setup lang="ts">
+import { Carousel, Slide, Navigation } from "vue3-carousel";
 import { useStore } from "../store/store";
 import { onMounted } from "vue";
 import TheSearch from "../components/TheSearch.vue";
 import TheNewsList from "../components/TheNewsList.vue";
 
 const store = useStore();
+
+const settings = {
+  itemsToShow: 2,
+  wrapAround: true,
+};
 
 onMounted((): void => {
   if (localStorage.length) {
@@ -47,4 +56,45 @@ onMounted((): void => {
 });
 </script>
 
-<style scoped></style>
+<style>
+.carousel__viewport {
+  z-index: 10;
+  overflow: hidden;
+}
+.carousel__item {
+  min-height: 200px;
+  width: 100%;
+  background-color: white;
+  color: black;
+  font-size: 20px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel__slide {
+  padding: 10px;
+}
+
+.carousel__prev,
+.carousel__next {
+  box-sizing: content-box;
+  border: 5px solid white;
+}
+.carousel__track {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+.carousel__slide {
+  scroll-snap-stop: auto;
+  flex-shrink: 0;
+  margin: 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>

@@ -89,7 +89,7 @@ const switchMenu = () => {
   @apply hidden lg:block;
 }
 .menu-desktop a {
-  @apply bg-blue-100 mx-2 px-4 py-1 rounded-lg hover:bg-blue-400 transition-all;
+  @apply bg-blue-100 mx-1 px-4 py-1 rounded-lg hover:bg-blue-400 transition-all;
 }
 .menu-desktop a.router-link-active {
   @apply bg-blue-300 hover:bg-blue-400;
