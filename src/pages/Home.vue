@@ -1,7 +1,7 @@
 <template>
   <div></div>
   <h2 class="font-bold text-5xl text-center my-2">Films news</h2>
-  <Carousel :settings="settings">
+  <Carousel :settings="settings" :breakpoints="breakpoints">
     <Slide class="card__wrapper" v-for="item in store.news.items" :key="item">
       <TheNewsList
         :imgUrl="item.image.url"
@@ -27,6 +27,15 @@ const store = useStore();
 const settings = {
   itemsToShow: 2,
   wrapAround: true,
+};
+
+const breakpoints = {
+  300: {
+    itemsToShow: 1,
+  },
+  700: {
+    itemsToShow: 2,
+  },
 };
 
 onMounted((): void => {

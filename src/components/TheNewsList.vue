@@ -2,7 +2,7 @@
   <div class="newsSection">
     <div class="flex items-center align-middle justify-center">
       <div class="relative max-w-xs">
-        <img :src="imgUrl" alt="img" />
+        <img :src="imgUrl" alt="img" class="max-h-48" />
         <a
           :href="link"
           target="_blank"
@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    <p>{{ body }}</p>
+    <p class="line-clamp-5">{{ body }}</p>
   </div>
 </template>
 <script setup lang="ts">
