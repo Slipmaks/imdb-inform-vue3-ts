@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="flex justify-center">
-      <div class="mb-3 xl:w-96">
+      <div class="mb-3 w-60 md:w-80">
         <div
-          class="input-group relative flex items-stretch w-full mb-4 rounded"
+          class="input-group relative flex items-stretch w-full mb-4 rounded justify-end"
         >
           <input
             type="search"
-            class="form-control relative flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+            class="w-40 focus:w-full form-control relative min-w-0 block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition-all ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
             placeholder="Search"
             aria-label="Search"
             aria-describedby="button-addon2"
