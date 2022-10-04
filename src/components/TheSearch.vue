@@ -3,7 +3,7 @@
     <div class="flex justify-center">
       <div class="mb-3 w-60 md:w-80">
         <div
-          class="input-group relative flex items-stretch w-full mb-4 rounded justify-end"
+          class="input-group relative flex items-stretch w-full mb-4 rounded justify-center"
         >
           <input
             type="search"

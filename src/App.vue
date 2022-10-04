@@ -15,8 +15,26 @@ import { useStore } from "./store/store";
 const store = useStore();
 </script>
 
-<style scoped>
+<style>
 .wrapper {
   @apply px-3 pt-3 bg-blue-300 font-sans;
 }
+::-webkit-scrollbar {
+  display: none;
+}
+/* ::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+} */
 </style>
