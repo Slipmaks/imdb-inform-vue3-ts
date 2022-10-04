@@ -32,8 +32,12 @@
               ></path>
             </svg>
           </span>
+          <MatchList />
         </div>
       </div>
     </div>
   </div>
 </template>
+<script setup lang="ts">
+import MatchList from "./MatchList.vue";
+</script>

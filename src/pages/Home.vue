@@ -25,7 +25,7 @@ const settings = {
   itemsToShow: 2,
   wrapAround: true,
   autoplay: 5000,
-  transition: 500,
+  transition: 600,
 };
 
 const breakpoints = {
