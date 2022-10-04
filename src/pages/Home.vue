@@ -11,15 +11,12 @@
       />
     </Slide>
   </Carousel>
-
-  <TheSearch />
 </template>
 
 <script setup lang="ts">
-import { Carousel, Slide, Navigation } from "vue3-carousel";
+import { Carousel, Slide } from "vue3-carousel";
 import { useStore } from "../store/store";
 import { onMounted } from "vue";
-import TheSearch from "../components/TheSearch.vue";
 import TheNewsList from "../components/TheNewsList.vue";
 
 const store = useStore();
@@ -27,6 +24,8 @@ const store = useStore();
 const settings = {
   itemsToShow: 2,
   wrapAround: true,
+  autoplay: 5000,
+  transition: 500,
 };
 
 const breakpoints = {
@@ -36,33 +35,11 @@ const breakpoints = {
   700: {
     itemsToShow: 2,
   },
+  1000: {
+    itemsToShow: 4,
+  },
 };
-
-onMounted((): void => {
-  if (localStorage.length) {
-    store.setNews(localStorage.getItem("news") as any);
-    return;
-  }
-  const options = {
-    method: "GET",
-    headers: {
-      "X-RapidAPI-Key": "74908b3243msh2d06d3bf0c24ebep108da1jsn4c0212c9701d",
-      "X-RapidAPI-Host": "imdb8.p.rapidapi.com",
-    },
-  };
-
-  fetch(
-    "https://imdb8.p.rapidapi.com/title/get-news?tconst=tt0944947&limit=5",
-    options
-  )
-    .then((response) => response.json())
-    .then((response) => {
-      const news = JSON.stringify(response);
-      localStorage.setItem("news", news);
-      store.setNews(news);
-    })
-    .catch((err) => console.error(err));
-});
+onMounted(() => store.fetchNews());
 </script>
 
 <style>
