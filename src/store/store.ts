@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+
 const options = {
   method: "GET",
   headers: {
@@ -9,6 +10,7 @@ const options = {
 
 export const useStore = defineStore("main", {
   state: () => ({
+    searchRes: [],
     openMenu: true,
     count: 0,
     news: {
@@ -53,6 +55,56 @@ export const useStore = defineStore("main", {
           const news = JSON.stringify(response);
           localStorage.setItem("news", news);
           this.setNews(news);
+        })
+        .catch((err) => console.error(err));
+    },
+    findInform(req: string) {
+      if (req === "name") {
+        console.log(req);
+      } else if (req === "title") {
+        console.log(req);
+      } else {
+        console.log(req);
+      }
+    },
+    fetchSearch(req: string) {
+      fetch(`https://imdb8.p.rapidapi.com/title/find?q=${req}`, options)
+        .then((response) => response.json())
+        .then((response) => {
+          let titles: {}[] = [];
+          let names: {}[] = [];
+          let results: { id: string }[] = [];
+
+          console.log(response);
+
+          if (response.results) {
+            results = response.results;
+            results.forEach(
+              (e: { id: string; title?: string; name?: string }, _1) => {
+                if (e.hasOwnProperty("title")) {
+                  // const itemToPush = {
+                  //   id: e.id,
+                  //   head: e.title,
+                  //   type: "title",
+                  // };
+                  let itemToPush = { id: "test" };
+                  titles = [...titles, itemToPush];
+                } else if (e.hasOwnProperty("name")) {
+                  const itemToPush = {
+                    id: e.id,
+                    head: e.name,
+                    type: "name",
+                  };
+                  names = [...names, itemToPush];
+                } else {
+                  console.log(e.id);
+                }
+              }
+            );
+          }
+          // this.searchRes = parsedData;
+          // console.log(this.searchRes);
+          console.log("Titles: " + titles + "Names: " + names);
         })
         .catch((err) => console.error(err));
     },

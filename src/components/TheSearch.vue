@@ -11,10 +11,13 @@
             placeholder="Search"
             aria-label="Search"
             aria-describedby="button-addon2"
+            v-model="userInput"
+            @keyup.enter="searchReq"
           />
           <span
             class="input-group-text flex items-center px-3 py-1.5 text-base font-normal text-gray-700 text-center whitespace-nowrap rounded"
             id="basic-addon2"
+            @click="searchReq"
           >
             <svg
               aria-hidden="true"
@@ -40,4 +43,15 @@
 </template>
 <script setup lang="ts">
 import MatchList from "./MatchList.vue";
+import { ref } from "vue";
+import { useStore } from "../store/store";
+
+const userInput = ref("");
+const store = useStore();
+
+const searchReq = () => {
+  store.fetchSearch(userInput.value);
+
+  userInput.value = "";
+};
 </script>

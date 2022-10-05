@@ -11,9 +11,7 @@
 
 <script setup lang="ts">
 import TheHeader from "./components/TheHeader.vue";
-import { useStore } from "./store/store";
 import TheSearch from "./components/TheSearch.vue";
-const store = useStore();
 </script>
 
 <style>
