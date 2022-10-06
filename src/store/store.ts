@@ -85,17 +85,21 @@ export const useStore = defineStore("main", {
             results.forEach(
               (e: { id: string; title?: string; name?: string }, _1) => {
                 if (e.hasOwnProperty("title")) {
+                  let type = e.id?.split("/")[1];
+                  let id = e.id?.split("/")[2];
                   const itemToPush = {
-                    id: e.id,
+                    id: id,
                     head: e.title,
-                    type: "title",
+                    type: type,
                   };
                   titles = [...titles, itemToPush];
                 } else if (e.hasOwnProperty("name")) {
+                  let type = e.id?.split("/")[1];
+                  let id = e.id?.split("/")[2];
                   const itemToPush = {
-                    id: e.id,
+                    id: id,
                     head: e.name,
-                    type: "name",
+                    type: type,
                   };
                   names = [...names, itemToPush];
                 } else {
