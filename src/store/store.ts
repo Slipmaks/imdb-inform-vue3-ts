@@ -7,10 +7,13 @@ const options = {
     "X-RapidAPI-Host": "imdb8.p.rapidapi.com",
   },
 };
-
+interface searchResInterface {
+  [inx: number]: { id: string; head: string; type: string };
+}
 export const useStore = defineStore("main", {
   state: () => ({
-    searchRes: [],
+    searchRes: <searchResInterface>[],
+    openSearchRes: false,
     openMenu: true,
     count: 0,
     news: {
@@ -47,7 +50,7 @@ export const useStore = defineStore("main", {
       }
 
       fetch(
-        "https://imdb8.p.rapidapi.com/title/get-news?tconst=tt0944947&limit=5",
+        "https://imdb8.p.rapidapi.com/title/get-news?tconst=tt0944947&limit=10",
         options
       )
         .then((response) => response.json())
@@ -82,12 +85,11 @@ export const useStore = defineStore("main", {
             results.forEach(
               (e: { id: string; title?: string; name?: string }, _1) => {
                 if (e.hasOwnProperty("title")) {
-                  // const itemToPush = {
-                  //   id: e.id,
-                  //   head: e.title,
-                  //   type: "title",
-                  // };
-                  let itemToPush = { id: "test" };
+                  const itemToPush = {
+                    id: e.id,
+                    head: e.title,
+                    type: "title",
+                  };
                   titles = [...titles, itemToPush];
                 } else if (e.hasOwnProperty("name")) {
                   const itemToPush = {
@@ -102,9 +104,12 @@ export const useStore = defineStore("main", {
               }
             );
           }
-          // this.searchRes = parsedData;
-          // console.log(this.searchRes);
-          console.log("Titles: " + titles + "Names: " + names);
+          this.searchRes.push(titles);
+          this.searchRes.push(names);
+          console.log(this.searchRes);
+          this.openSearchRes = true;
+
+          // console.log("Titles: ", ...titles, "Names: ", ...names);
         })
         .catch((err) => console.error(err));
     },

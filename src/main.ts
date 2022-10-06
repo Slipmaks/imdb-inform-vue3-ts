@@ -6,6 +6,11 @@ import { createPinia } from "pinia";
 
 const app = createApp(App);
 const pinia = createPinia();
+app.directive("focus", {
+  mounted(el) {
+    el.focus();
+  },
+});
 
 app.use(pinia);
 app.use(router);

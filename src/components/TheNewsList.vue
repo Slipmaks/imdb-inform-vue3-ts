@@ -26,7 +26,7 @@ defineProps({
 </script>
 <style scoped>
 .newsSection {
-  @apply relative border-2 border-blue-400 p-2 rounded-lg bg-blue-200 mb-2;
+  @apply relative border-2 border-blue-400 p-2 rounded-lg bg-blue-200 mb-2 min-h-full;
 }
 .newsSection div img {
   @apply rounded-lg items-center;
