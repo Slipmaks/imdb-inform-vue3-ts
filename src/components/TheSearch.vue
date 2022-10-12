@@ -51,7 +51,6 @@ const store = useStore();
 
 const searchReq = () => {
   store.fetchSearch(userInput.value);
-
   userInput.value = "";
 };
 </script>

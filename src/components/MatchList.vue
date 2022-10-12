@@ -5,15 +5,25 @@
     id="search-results"
     tabindex="1"
     v-focus
-    @blur="blurSearch"
+    @blur="onblurSearch"
   >
     <div>
       <p>Actors</p>
-      <li v-for="item in store.searchRes[1]" :key="item">{{ item.head }}</li>
+      <li
+        v-for="item in store.searchRes[1]"
+        :key="item"
+        @click="store.findActor(item.id)"
+      >
+        {{ item.head }}
+      </li>
     </div>
     <div>
       <p>Titles</p>
-      <li v-for="item in store.searchRes[0]" :key="item">
+      <li
+        v-for="item in store.searchRes[0]"
+        :key="item"
+        @click="store.findFilm(item.id)"
+      >
         {{ item.head }}
       </li>
     </div>
@@ -24,7 +34,7 @@
 import { useStore } from "../store/store";
 const store = useStore();
 
-const blurSearch = () => {
+const onblurSearch = () => {
   (store.openSearchRes = false), (store.searchRes = []);
 };
 </script>

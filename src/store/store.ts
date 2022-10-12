@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import router from "../router";
 
 const options = {
   method: "GET",
@@ -8,7 +9,7 @@ const options = {
   },
 };
 interface searchResInterface {
-  [inx: number]: { id: string; head: string; type: string };
+  [idx: number]: { id: string; head: string; type: string };
 }
 export const useStore = defineStore("main", {
   state: () => ({
@@ -41,7 +42,6 @@ export const useStore = defineStore("main", {
     setNews(res: string) {
       const obj: { items: {}[] } = JSON.parse(res);
       this.news = Object.assign({}, obj) as any;
-      console.log(this.news);
     },
     fetchNews() {
       if (localStorage.getItem("news")) {
@@ -71,14 +71,15 @@ export const useStore = defineStore("main", {
       }
     },
     fetchSearch(req: string) {
+      if (req.trim() == "") {
+        return;
+      }
       fetch(`https://imdb8.p.rapidapi.com/title/find?q=${req}`, options)
         .then((response) => response.json())
         .then((response) => {
           let titles: {}[] = [];
           let names: {}[] = [];
           let results: { id: string }[] = [];
-
-          console.log(response);
 
           if (response.results) {
             results = response.results;
@@ -110,12 +111,22 @@ export const useStore = defineStore("main", {
           }
           this.searchRes.push(titles);
           this.searchRes.push(names);
-          console.log(this.searchRes);
-          this.openSearchRes = true;
 
-          // console.log("Titles: ", ...titles, "Names: ", ...names);
+          this.openSearchRes = true;
         })
         .catch((err) => console.error(err));
+    },
+    findActor(id: string) {
+      fetch(`https://imdb8.p.rapidapi.com/actors/get-bio?nconst=${id}`, options)
+        .then((response) => response.json())
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => console.error(err));
+    },
+    findFilm(id: string) {
+      console.log("Film info", id);
+      router.push(`/film/${id}`);
     },
   },
 });
