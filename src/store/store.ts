@@ -1,19 +1,11 @@
 import { defineStore } from "pinia";
 import router from "../router";
+import { options } from "./options";
+import { searchResults } from "../interfaces/SearchResults";
 
-const options = {
-  method: "GET",
-  headers: {
-    "X-RapidAPI-Key": "74908b3243msh2d06d3bf0c24ebep108da1jsn4c0212c9701d",
-    "X-RapidAPI-Host": "imdb8.p.rapidapi.com",
-  },
-};
-interface searchResInterface {
-  [idx: number]: { id: string; head: string; type: string };
-}
 export const useStore = defineStore("main", {
   state: () => ({
-    searchRes: <searchResInterface>[],
+    searchRes: <searchResults>[],
     openSearchRes: false,
     openMenu: true,
     count: 0,
@@ -117,12 +109,7 @@ export const useStore = defineStore("main", {
         .catch((err) => console.error(err));
     },
     findActor(id: string) {
-      fetch(`https://imdb8.p.rapidapi.com/actors/get-bio?nconst=${id}`, options)
-        .then((response) => response.json())
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((err) => console.error(err));
+      router.push(`/actor/${id}`);
     },
     findFilm(id: string) {
       console.log("Film info", id);

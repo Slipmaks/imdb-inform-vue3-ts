@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import { useStore } from "./store/store";
 import Home from "./pages/Home.vue";
 import NotFound from "./pages/NotFound.vue";
+import Actor from "./pages/Actor.vue";
+import Film from "./pages/Film.vue";
 
 const routes = [
   {
@@ -9,6 +11,9 @@ const routes = [
     name: "Home",
     component: Home,
   },
+  { path: "/actor/:afterActor(.*)", component: Actor },
+  { path: "/film/:afterFilm(.*)", component: Film },
+
   {
     path: "/:pathMatch(.*)",
     name: "NotFound",
