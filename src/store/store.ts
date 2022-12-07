@@ -1,14 +1,29 @@
 import { defineStore } from "pinia";
 import router from "../router";
 import { options } from "./options";
-import { searchResults } from "../interfaces/SearchResults";
+import { SearchResults } from "../interfaces/SearchResults";
+
+interface News {
+  items: NewsItems[];
+}
+interface NewsItems {
+  body: string;
+  head: string;
+  image: { url: string };
+  link: string;
+}
+interface Store {
+  searchRes: SearchResults[];
+  openSearchRes: boolean;
+  openMenu: boolean;
+  news: News;
+}
 
 export const useStore = defineStore("main", {
-  state: () => ({
-    searchRes: <searchResults>[],
+  state: (): Store => ({
+    searchRes: [],
     openSearchRes: false,
     openMenu: true,
-    count: 0,
     news: {
       items: [
         {
@@ -22,15 +37,7 @@ export const useStore = defineStore("main", {
       ],
     },
   }),
-  getters: {
-    getCount(): number {
-      return this.count;
-    },
-  },
   actions: {
-    increment() {
-      this.count++;
-    },
     setNews(res: string) {
       const obj: { items: {}[] } = JSON.parse(res);
       this.news = Object.assign({}, obj) as any;

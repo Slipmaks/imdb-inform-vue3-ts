@@ -1,7 +1,11 @@
 <template>
-  <div v-if="film">
+  <div v-if="!film.title" class="text-center">loading...</div>
+  <div v-if="film" class="min-h-screen">
     <div v-if="film.title">
-      <img :src="film.title.image.url" alt="" />
+      <div class="max-w-xs m-2">
+        <h1 class="font-black text-center">{{ film.title.title }}</h1>
+        <img :src="film.title.image.url" alt="title" class="rounded-md" />
+      </div>
     </div>
   </div>
 </template>
@@ -24,7 +28,6 @@ onMounted(() => {
     .then((response) => {
       Object.assign(film, response[id]);
       console.log(film);
-      debugger;
     })
     .catch((err) => console.error(err));
 });
