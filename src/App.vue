@@ -16,7 +16,7 @@ import TheSearch from "./components/TheSearch.vue";
 
 <style>
 .wrapper {
-  @apply px-3 pt-3 bg-blue-300 font-sans;
+  @apply px-3 pt-3 bg-blue-300 font-sans min-h-screen;
 }
 ::-webkit-scrollbar {
   display: none;
