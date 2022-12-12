@@ -1,8 +1,8 @@
 <template>
   <div class="wrapper">
     <TheHeader />
-    <h1 class="text-2xl font-bold text-center mb-3">
-      Find information about movie
+    <h1 class="text-4xl font-bold text-center my-5">
+      Find information about movie and actors
     </h1>
     <TheSearch />
     <router-view></router-view>

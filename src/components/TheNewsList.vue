@@ -2,7 +2,12 @@
   <div class="newsSection">
     <div class="flex items-center align-middle justify-center">
       <div class="relative max-w-xs">
-        <img :src="imgUrl" alt="img" class="max-h-48" />
+        <img
+          :src="imgUrl"
+          alt="img"
+          class="max-h-48 cursor-move"
+          draggable="false"
+        />
         <a
           :href="link"
           target="_blank"
@@ -13,7 +18,7 @@
       </div>
     </div>
 
-    <p class="line-clamp-5">{{ body }}</p>
+    <p class="line-clamp-5 cursor-move select-none">{{ body }}</p>
   </div>
 </template>
 <script setup lang="ts">

@@ -43,7 +43,7 @@ const onblurSearch = () => {
   @apply max-h-80 overflow-scroll absolute top-11 bg-slate-100 w-60 md:w-96 rounded-lg p-2 z-20 border-blue-600 border opacity-95 focus:bg-slate-50 focus:outline-none focus:border-slate-400;
 }
 .match li {
-  @apply flex flex-col border rounded-lg my-1 p-2 text-gray-500;
+  @apply flex flex-col border rounded-lg my-1 p-2 text-gray-500 cursor-pointer hover:text-gray-600 hover:bg-slate-200;
 }
 .match ::-webkit-scrollbar {
   width: 10px;
