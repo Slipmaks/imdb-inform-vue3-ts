@@ -116,11 +116,11 @@ export const useStore = defineStore("main", {
         .catch((err) => console.error(err));
     },
     findActor(id: string) {
-      router.push(`/actor/${id}`);
+      router.push({ path: `/actor/${id}` });
     },
     findFilm(id: string) {
       console.log("Film info", id);
-      router.push(`/film/${id}`);
+      router.push({ path: `/film/${id}` });
     },
   },
 });

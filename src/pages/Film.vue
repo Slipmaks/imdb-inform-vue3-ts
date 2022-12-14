@@ -1,11 +1,11 @@
 <template>
-  <div v-if="!film.title" class="text-center">loading...</div>
-  <div v-if="film.title">
-    <h2 class="text-center text-3xl">{{ film.title.title }}</h2>
+  <div v-if="!filmMeta.title" class="text-center">loading...</div>
+  <div v-if="filmMeta.title">
+    <h2 class="text-center text-3xl">{{ filmMeta.title.title }}</h2>
 
     <div class="flex">
-      <div class="max-w-xs mr-4">
-        <img :src="film.title.image.url" alt="title" class="rounded-md" />
+      <div class="mr-4 max-w-xs">
+        <img :src="filmMeta.title.image.url" alt="title" class="rounded-md" />
       </div>
 
       <div>
@@ -13,7 +13,7 @@
         <div class="information">
           <h2>Genres:</h2>
           <p
-            v-for="genre in film.genres"
+            v-for="genre in filmMeta.genres"
             :key="genre"
             class="bg-blue-200 px-2 mx-1 rounded-md"
           >
@@ -23,7 +23,15 @@
         <div class="information">
           <h2>Metascore:</h2>
           <p :class="colorMetacriticScore">
-            {{ film.metacritic?.metaScore }}
+            {{ filmMeta.metacritic?.metaScore }}
+          </p>
+        </div>
+        <div class="max-w-3xl">
+          <h2 class="text-xl">Summary:</h2>
+          <p>{{ overviewDetailsData.plotSummary.text }}</p>
+
+          <p class="italic my-2">
+            {{ overviewDetailsData.plotSummary.author }}
           </p>
         </div>
       </div>
@@ -31,31 +39,55 @@
   </div>
 </template>
 <script setup lang="ts">
-import { onMounted, reactive, computed } from "vue";
+import { onMounted, reactive, computed, watch } from "vue";
 import { options } from "../store/options";
 import { useRoute } from "vue-router";
-import { Film } from "../interfaces/Film/Film";
+import { FilmMeta, OverviewDetails } from "../interfaces/Film/Film";
 
 const route = useRoute();
-const film: Film = reactive({}) as any;
+const filmMeta: FilmMeta = reactive({}) as any;
+const overviewDetailsData: OverviewDetails = reactive({}) as any;
 const id = route.params.afterFilm as string;
 
-onMounted(() => {
-  fetch(
-    `https://imdb8.p.rapidapi.com/title/get-meta-data?ids=${id}&region=US`,
-    options
-  )
-    .then((response) => response.json())
+const fetchData = () => {
+  Promise.all([
+    fetch(
+      `https://imdb8.p.rapidapi.com/title/get-meta-data?ids=${id}&region=US`,
+      options
+    ),
+    fetch(
+      `https://imdb8.p.rapidapi.com/title/get-overview-details?tconst=${id}&currentCountry=US`,
+      options
+    ),
+  ])
+    .then(async ([meta, overview]) => {
+      const metaData = await meta.json();
+      const overviewDetails = await overview.json();
+      return [metaData, overviewDetails];
+    })
     .then((response) => {
-      Object.assign(film, response[id]);
-      console.log(film);
+      const [metaData, overviewDetails] = response;
+      Object.assign(filmMeta, metaData[id]);
+      Object.assign(overviewDetailsData, overviewDetails);
+
+      console.log(metaData[id], overviewDetailsData);
     })
     .catch((err) => console.error(err));
+};
+
+onMounted(() => {
+  fetchData();
+});
+
+watch((route) => {
+  fetchData();
 });
 
 const colorMetacriticScore = computed(() => {
-  return (film.metacritic?.metaScore as number) >= 80
-    ? "metactitic-green"
+  return (filmMeta.metacritic?.metaScore as number) >= 80
+    ? "metacritic-green"
+    : (filmMeta.metacritic?.metaScore as number) >= 40
+    ? "metacritic-yellow"
     : "metacritic-red";
 });
 </script>
@@ -66,12 +98,16 @@ const colorMetacriticScore = computed(() => {
 .information > h2 {
   @apply mr-2 text-xl;
 }
-.metactitic-red {
+.metacritic-red {
   color: rgb(255, 0, 0);
   text-shadow: 0 0 0.5em rgb(255, 0, 0);
 }
-.metactitic-green {
+.metacritic-green {
   color: rgb(0, 255, 149);
   text-shadow: 0 0 1em rgb(0, 255, 179);
+}
+.metacritic-yellow {
+  color: rgb(212, 255, 0);
+  text-shadow: 0 0 1em rgb(212, 255, 0);
 }
 </style>
