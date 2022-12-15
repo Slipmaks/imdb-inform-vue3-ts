@@ -119,7 +119,6 @@ export const useStore = defineStore("main", {
       router.push({ path: `/actor/${id}` });
     },
     findFilm(id: string) {
-      console.log("Film info", id);
       router.push({ path: `/film/${id}` });
     },
   },

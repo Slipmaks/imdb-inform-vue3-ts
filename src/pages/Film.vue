@@ -28,10 +28,10 @@
         </div>
         <div class="max-w-3xl">
           <h2 class="text-xl">Summary:</h2>
-          <p>{{ overviewDetailsData.plotSummary.text }}</p>
+          <p>{{ overviewDetailsData.plotSummary?.text }}</p>
 
           <p class="italic my-2">
-            {{ overviewDetailsData.plotSummary.author }}
+            {{ overviewDetailsData.plotSummary?.author }}
           </p>
         </div>
       </div>
@@ -39,17 +39,21 @@
   </div>
 </template>
 <script setup lang="ts">
-import { onMounted, reactive, computed, watch } from "vue";
+import { onMounted, reactive, computed, ref, watch } from "vue";
 import { options } from "../store/options";
 import { useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 import { FilmMeta, OverviewDetails } from "../interfaces/Film/Film";
 
 const route = useRoute();
 const filmMeta: FilmMeta = reactive({}) as any;
 const overviewDetailsData: OverviewDetails = reactive({}) as any;
-const id = route.params.afterFilm as string;
+const id = ref("");
+id.value = route.params.afterFilm as string;
+const currentRoute = ref("");
+currentRoute.value = useRouter().currentRoute.value.fullPath;
 
-const fetchData = () => {
+const fetchData = (id: string) => {
   Promise.all([
     fetch(
       `https://imdb8.p.rapidapi.com/title/get-meta-data?ids=${id}&region=US`,
@@ -67,6 +71,7 @@ const fetchData = () => {
     })
     .then((response) => {
       const [metaData, overviewDetails] = response;
+
       Object.assign(filmMeta, metaData[id]);
       Object.assign(overviewDetailsData, overviewDetails);
 
@@ -76,11 +81,12 @@ const fetchData = () => {
 };
 
 onMounted(() => {
-  fetchData();
+  fetchData(id.value);
 });
 
-watch((route) => {
-  fetchData();
+watch(route, (newPath: any) => {
+  filmMeta.title = null;
+  fetchData(newPath.params.afterFilm);
 });
 
 const colorMetacriticScore = computed(() => {
