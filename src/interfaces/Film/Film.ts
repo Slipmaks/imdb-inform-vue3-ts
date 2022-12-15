@@ -6,7 +6,7 @@ import { Metacritic } from "./Metacritic";
 import { PlotSummary } from "./PlotSummary";
 
 export interface FilmMeta {
-  title: Title;
+  title: Title | null;
   genres: Genres;
   metacritic?: Metacritic;
 }

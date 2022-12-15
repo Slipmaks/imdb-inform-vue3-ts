@@ -9,6 +9,7 @@ interface News {
 interface NewsItems {
   body: string;
   head: string;
+  id: string;
   image: { url: string };
   link: string;
 }
@@ -29,6 +30,7 @@ export const useStore = defineStore("main", {
         {
           body: "",
           head: "",
+          id: "",
           image: {
             url: "",
           },

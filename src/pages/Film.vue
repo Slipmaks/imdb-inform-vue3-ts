@@ -3,8 +3,8 @@
   <div v-if="filmMeta.title">
     <h2 class="text-center text-3xl">{{ filmMeta.title.title }}</h2>
 
-    <div class="flex">
-      <div class="mr-4 max-w-xs">
+    <div class="block md:flex">
+      <div class="max-w-full md:mr-4 md:max-w-xs flex justify-center">
         <img :src="filmMeta.title.image.url" alt="title" class="rounded-md" />
       </div>
 
@@ -99,7 +99,7 @@ const colorMetacriticScore = computed(() => {
 </script>
 <style scoped>
 .information {
-  @apply flex items-center;
+  @apply flex items-center flex-wrap;
 }
 .information > h2 {
   @apply mr-2 text-xl;

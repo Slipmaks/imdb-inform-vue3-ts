@@ -1,7 +1,10 @@
 <template>
-  <div></div>
-  <h2 class="font-bold text-5xl text-center my-2">Films news</h2>
-  <Carousel :settings="settings" :breakpoints="breakpoints">
+  <h2 class="font-bold text-2xl text-center my-2">Films news</h2>
+  <Carousel
+    :settings="settings"
+    :breakpoints="breakpoints"
+    v-if="store.news.items"
+  >
     <Slide
       class="card__wrapper"
       v-for="item in store.news.items"
